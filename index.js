@@ -4,6 +4,8 @@ import productsRouter from "./src/routes/products.router.js";
 
 const app = express();
 
+app.use(express.json()); //agregamos el middleware para la petición
+
 // app.use((req, res, next) => {
 //     // res.json({message: "soy el middleware"})
 //     console.log(req.method);

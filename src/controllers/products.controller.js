@@ -1,18 +1,18 @@
 import * as Model from "../models/products.model.js";
 
-export const getAllProducts = (req, res) => {
+export const getAllProducts = async (req, res) => {
   const { category } = req.query;
 
-  const products = Model.getAllProducts();
+  const products = await Model.getAllProducts();
 
   if (category) {
     const productsFiltered = products.filter((item) =>
       item.categories.includes(category)
     );
     res.status(200).json(productsFiltered);
-  } else {
-    res.json(products);
+    return;
   }
+  res.json(products);
 };
 
 export const searchProduct = (req, res) => {
@@ -34,20 +34,20 @@ export const searchProduct = (req, res) => {
 };
 
 export const getProductById = async (req, res) => {
-    const  id  = req.params.id;
-    
+  const id = req.params.id;
 
-    const product = await Model.getProductById(id);
-    
+  const product = await Model.getProductById(id);
 
-    if (!product) {
-      
-        res.status(404).json({ error: "No existe el producto" });
-        
-    }
-    
-    res.json(product);
+  if (!product) {
+    res.status(404).json({ error: "No existe el producto" });
+  }
 
-    
+  res.json(product);
 };
 
+export const createProduct = async (req, res) => {
+  const { name, price, categories } = req.body;
+
+  const product = await Model.createProduct({ name, price, categories });
+  res.status(201).json(product);
+};
