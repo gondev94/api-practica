@@ -1,5 +1,6 @@
-import express from 'express';
-import productsRouter from "./src/routes/products.router.js"
+import express from "express";
+import productsRouter from "./src/routes/products.router.js";
+import "dotenv/config";
 
 const app = express();
 
@@ -9,17 +10,15 @@ const app = express();
 //     next();
 // })
 
-
 app.get("/", (req, res) => {
-    res.send("bienvenidos a nuestra api rest")
-})
+  res.send("bienvenidos a nuestra api rest");
+});
 
-app.use(productsRouter)
+app.use(productsRouter);
 
+import notFound from "./src/middlewares/not-found.js";
+app.use(notFound); // esto para cuando hago funcionalidad importo modulo
 
-import notFound from "./src/middlewares/not-found.js"
-app.use(notFound) // esto para cuando hago funcionalidad importo modulo 
+const PORT = process.env.PORT;
 
-const PORT = 3000
-
-app.listen(PORT, () => console.log(`http://localhost:${PORT}`))
+app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
