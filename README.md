@@ -38,33 +38,66 @@ npm run dev
 - **Respuesta ejemplo**
 
 ```json
-    [{ "id": 1, "name": "Camiseta Deportiva", "price": 150, "categories": ["ropa", "deportes"]}]
+[
+    {
+        "id": "1",
+        "name": "Camiseta Deportiva",
+        "categories": [
+            "ropa",
+            "deportes"
+        ],
+        "price": 150
+    }
+]
 ```
 
 ### Buscar productos por nombre
 
 - **GET** `/products/search?name=palabra`
 - **Descripción:** Devuelve los productos cuyo nombre contiene la palabra indicada
-- **Parámetros:**
-    -`name` (query, requerido): texto a buscar en el nombre del producto.
--**Ejemplo de uso:** `/products/search?name=camiseta`
--**Respuesta ejemplo:**
-
+- **Parámetros:** -`name` (query, requerido): texto a buscar en el nombre del producto. -**Ejemplo de uso:** `/products/search?name=camiseta` -**Respuesta ejemplo:**
 
 ```json
-[{"id": 1, "name": "Camiseta Deportiva", "price": 150 }]
+[{ "id": 1, "name": "Camiseta Deportiva", "price": 150 }]
 ```
 
 ### Buscar productos por id
 
 - **GET** `/products/:id`
 - **Descripción:** Devuelve los productos específico por su ID
-- **Parámetros:**
-    -`id` (path, requerido): ID del producto.
--**Ejemplo de uso:** `/products/1`
--**Respuesta ejemplo:**
-
+- **Parámetros:** -`id` (path, requerido): ID del producto. -**Ejemplo de uso:** `/products/wbdBfhgXx64EiOGnysZe`
+- **Respuesta ejemplo:**
 
 ```json
-[{"id": 1, "name": "Camiseta Deportiva", "price": 150 }]
+{
+  "id": "wbdBfhgXx64EiOGnysZe",
+  "categories": ["calzado", "deportes"],
+  "price": 200,
+  "name": "Zapatillas Nike AirMax"
+}
+```
+
+### Crear un producto
+
+- **POST** `/products`
+- **Descripción:** Crea un nuevo producto.
+- **Body (JSON):**
+
+```json
+{
+  "categories": ["calzado", "deportes"],
+  "price": 200,
+  "name": "Zapatillas Nike AirMax"
+}
+```
+
+- **Respuesta Ejemplo:**
+
+```json
+{
+  "id": "wbdBfhgXx64EiOGnysZe",
+  "name": "Zapatillas Nike AirMax",
+  "price": 200,
+  "categories": ["calzado", "deportes"]
+}
 ```
