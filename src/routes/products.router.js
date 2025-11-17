@@ -3,7 +3,8 @@ import {
     getAllProducts,
     searchProduct,
     getProductById,
-    createProduct
+    createProduct,
+    deleteProduct
 } from "../controllers/products.controller.js";
 
 const router = Router();
@@ -18,6 +19,8 @@ router.get("/products/:id", getProductById)
 //creamos producto
 
 router.post("/products", createProduct)
+
+router.delete("/products/:id", deleteProduct)
 
 export default router;
 
