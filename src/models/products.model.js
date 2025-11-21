@@ -77,7 +77,7 @@ export const updatePatchProduct = async (id, productData) => {
 };
 
 export const deleteProduct = async (id) => {
-  try {
+  try { 
     const productRef = doc(productsCollection, id);
     const snapshot = await getDoc(productRef);
     if (!snapshot.exists()) {
