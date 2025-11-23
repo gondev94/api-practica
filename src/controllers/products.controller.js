@@ -6,10 +6,8 @@ export const getAllProducts = async (req, res) => {
   const products = await Model.getAllProducts();
 
   if (category) {
-    const productsFiltered = products.filter((item) =>
-      item.categories.includes(category)
-    );
-    res.status(200).json(productsFiltered);
+    const productsByCategory = await Model.getProductsByCategory(category)
+    res.status(200).json(productsByCategory);
     return;
   }
   res.json(products);

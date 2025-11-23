@@ -1,4 +1,3 @@
-import e from "express";
 import { db } from "./firebase.js";
 import {
   collection,
@@ -9,7 +8,8 @@ import {
   setDoc,
   deleteDoc,
   updateDoc,
-  
+  query,
+  where,
 } from "firebase/firestore";
 
 const productsCollection = collection(db, "products");
@@ -33,6 +33,23 @@ export const getProductById = async (id) => {
   }
 };
 
+export const getProductsByCategory = async (category) => {
+  try {
+    const q = query(
+      productsCollection,
+      where("categories", "array-contains", category)
+    );
+
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createProduct = async (data) => {
   try {
     const docRef = await addDoc(productsCollection, data);
@@ -44,14 +61,13 @@ export const createProduct = async (data) => {
 
 export const updateProduct = async (id, productData) => {
   try {
-
     const productRef = doc(productsCollection, id);
     const snapshot = await getDoc(productRef);
 
     if (!snapshot.exists()) {
       return false;
     }
-    await setDoc(productRef, productData); // le decimos a esa ref que le pasamos product data ,  el objeto de return le indicamos que identificado y que datos tenemos para ese producto, set data lo que hace reemplaza el registro 
+    await setDoc(productRef, productData); // le decimos a esa ref que le pasamos product data ,  el objeto de return le indicamos que identificado y que datos tenemos para ese producto, set data lo que hace reemplaza el registro
     return { id, ...productData };
   } catch (error) {
     console.error(error);
@@ -77,7 +93,7 @@ export const updatePatchProduct = async (id, productData) => {
 };
 
 export const deleteProduct = async (id) => {
-  try { 
+  try {
     const productRef = doc(productsCollection, id);
     const snapshot = await getDoc(productRef);
     if (!snapshot.exists()) {

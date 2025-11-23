@@ -42,11 +42,15 @@ export const login = async (req, res) => {
   }
 
   const token = jwt.sign(
-    { id: user.id, email: user.email },
-    process.env.JWE_SECRET,
+    { id: user.id, email: user.email }, 
+    process.env.JWT_SECRET,
     {
-      expiresIn: "1h",
+      expiresIn: "1h", 
     }
   );
-  return res.json({ token });
+  return res.json({ token }); 
 };
+//payload carga util del token se ponen datos que no son sensibles id o email o uuid
+// es una firma que usamos para fimrar el token 
+//fecha de expiración lo que necesito que dure el token, depende de la app hs minutos dias semanas
+//devuelve eltoken que uso para crear un producto
