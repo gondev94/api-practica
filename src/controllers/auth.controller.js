@@ -15,7 +15,7 @@ export const registrer = async (req, res) => {
   }
   const passwordHash = await bcrypt.hash(password, 10);
 
-  //   console.log(email, password); verifico que recibo
+  
 
   const user = await creatUser(email, passwordHash);
   if (!user) {
@@ -50,7 +50,3 @@ export const login = async (req, res) => {
   );
   return res.json({ token }); 
 };
-//payload carga util del token se ponen datos que no son sensibles id o email o uuid
-// es una firma que usamos para fimrar el token 
-//fecha de expiración lo que necesito que dure el token, depende de la app hs minutos dias semanas
-//devuelve eltoken que uso para crear un producto

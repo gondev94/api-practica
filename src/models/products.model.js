@@ -67,7 +67,7 @@ export const updateProduct = async (id, productData) => {
     if (!snapshot.exists()) {
       return false;
     }
-    await setDoc(productRef, productData); // le decimos a esa ref que le pasamos product data ,  el objeto de return le indicamos que identificado y que datos tenemos para ese producto, set data lo que hace reemplaza el registro
+    await setDoc(productRef, productData); 
     return { id, ...productData };
   } catch (error) {
     console.error(error);
@@ -83,9 +83,7 @@ export const updatePatchProduct = async (id, productData) => {
       return false;
     }
 
-    // await updateDoc(productRef,productData)
     await setDoc(productRef, productData, { merge: true });
-    //lo que hace el merge es tomar el registro que esta en la base de datos y lo que hace es mezclarlo con los datos que yo le envío, si yo solo envío solo precio solo actualiza precio y guardar el resto , ahora mezcla los datos nuevos con los datos que ya estaban
     return { id, ...productData };
   } catch (error) {
     console.error(error);
